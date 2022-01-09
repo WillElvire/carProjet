@@ -25,7 +25,7 @@ class authController extends Controller
         $userConnected = User::where(['email' => $email])->first();
         if ($userConnected != null && Hash::check($password, $userConnected->password)) {
             Auth::login($userConnected);
-            return redirect('/');
+            return redirect('/dashboard');
         }
         else{
             Session::flash('error', 'Cet utilisateur est inexistant');
