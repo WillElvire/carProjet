@@ -55,3 +55,10 @@ Route::get('/logout',function(){
     session()->flash('message','vous etes déconnecté');
     return redirect('/login');
 });
+
+
+Route::get('/update/{id}',[CarController::class,'updateView'])->middleware('App\Http\Middleware\AuthMiddleware');
+
+Route::get('/delete/{id}',[CarController::class,'delete'] )->middleware('App\Http\Middleware\AuthMiddleware')->name('delete');
+
+Route::post('/update/{id}',[CarController::class,'updateValue'])->middleware('App\Http\Middleware\AuthMiddleware')->name('update');

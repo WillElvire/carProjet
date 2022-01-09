@@ -60,4 +60,24 @@ class CarController extends Controller
        return back();
 
     }
+
+
+    public function delete($id){
+        Image::where(['carId'=>$id])->delete();
+        Cars::where(['id'=>$id])->delete();
+        Session::flash('message', 'Votre annonce a été supprimée avec succès');
+        return redirect('/liste');
+    }
+
+    public function updateView($id){
+        $cars = Cars::where(['id'=>$id])->first();
+        return view('pages/dashboard/update',compact('cars'));
+    }
+
+    public function updateValue($id,Request $request){
+        $data = $request->except('_token');
+        Cars::where(['id'=>$id])->update($data);
+        Session::flash('message', 'Votre annonce a été modifiée avec succès');
+        return back();
+    }
 }
